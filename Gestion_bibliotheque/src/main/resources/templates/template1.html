@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">WebSiteName</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Page 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Page 2</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Livre</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/addLivre}">Nouveau</a></li>
+                        <li><a class="dropdown-item" th:href="@{/index}">Chercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/editLivre}">modifier</a></li>
+                    </ul>
+                </li>
+              
+
+                </ul>
+                
+                <ul class="navbar-nav me-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Username</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/logout}">logout</a></li>
+            
+                    </ul>
+                </li>
+
+            </ul>
+
+            <!-- <form class="d-flex" action="/action_page.php">
+                <input type="text" class="form-control me-2" placeholder="Search" name="search">
+                <button type="submit" class="btn btn-outline-light">Submit</button>
+            </form> -->
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>
