@@ -16,7 +16,8 @@ import fstm.ilisi.Gestion_bibliotheque.repository.LivreRepository;
 
 @Controller
 public class LivreController {
-
+    
+    //dipendance injection
     private final LivreRepository livreRepository ;
 
     public LivreController(LivreRepository livreRepository) {
@@ -47,7 +48,7 @@ public String deleteLivre(@RequestParam(name = "id") Long id,
 
 
     @GetMapping("/editLivre")
-    public String showEditForm(@RequestParam(name = "id") Long id, 
+    public String showEditForm(@RequestParam(name = "id") Long id,
                                @RequestParam(name = "search", defaultValue = "") String search,
                                Model model) {
         Livre livre = livreRepository.findById(id)
@@ -65,13 +66,16 @@ public String deleteLivre(@RequestParam(name = "id") Long id,
         return "redirect:/index?search=" + search;
     }
 
+
     @GetMapping("/addLivre")
     public String showAddForm(@RequestParam(name = "search", defaultValue = "") String search,
-                              Model model) {
+                            Model model) {
         model.addAttribute("livre", new Livre());
         model.addAttribute("search", search);
         return "ajouterLivre";
     }
+
+
 
     @PostMapping("/addLivre")
     public String addLivre(@ModelAttribute Livre livre,
