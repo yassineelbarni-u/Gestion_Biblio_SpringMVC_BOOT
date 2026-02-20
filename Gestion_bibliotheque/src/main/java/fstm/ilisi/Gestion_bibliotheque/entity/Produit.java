@@ -7,12 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class Livre {
+public class Produit {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String titre;
-    private String auteur;
-    private int Quantite;
-    
+    private String nom;
+    private String categorie;
+    private String imageUrl;
+    private String description;
+    private double prix;
+    private int stock;
+
 }

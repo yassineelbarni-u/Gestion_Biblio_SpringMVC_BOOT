@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Produit</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}" />
+</head>
+<body>
+    <form th:object="${produit}" th:action="@{/editProduit}" method="post" enctype="multipart/form-data" class="container mt-4">
+        <div class="card p-2 m-2">
+            <div class="card-header">
+                <h1 class="mb-0">Modifier Produit</h1>
+            </div>
+            <div class="card-body">
+                <input type="hidden" th:field="*{id}" />
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom du produit</label>
+                    <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="Nom du produit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="categorie" class="form-label">Catégorie</label>
+                    <input type="text" th:field="*{categorie}" class="form-control" id="categorie" placeholder="Catégorie du produit" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Image du produit</label>
+                    
+                    <!-- Prévisualisation de l'image actuelle -->
+                    <div class="mb-2" th:if="${produit.imageUrl != null and !produit.imageUrl.isEmpty()}">
+                        <label class="form-label">Image actuelle :</label><br>
+                        <img th:src="${produit.imageUrl}" alt="Image actuelle" style="max-width: 200px; max-height: 200px; object-fit: contain;" class="border rounded">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="imageFile" class="form-label">Changer l'image (uploader depuis votre PC)</label>
+                            <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*">
+                            <small class="form-text text-muted">Formats acceptés: JPG, PNG, GIF</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="imageUrl" class="form-label">Ou modifier l'URL</label>
+                            <input type="url" th:field="*{imageUrl}" class="form-control" id="imageUrl" placeholder="https://example.com/image.jpg">
+                            <small class="form-text text-muted">Si vous uploadez un fichier, l'URL sera remplacée</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea th:field="*{description}" class="form-control" id="description" rows="3" placeholder="Description du produit" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="prix" class="form-label">Prix (€)</label>
+                    <input type="number" step="0.01" th:field="*{prix}" class="form-control" id="prix" placeholder="Prix du produit" required>
+                </div>
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input type="number" th:field="*{stock}" class="form-control" id="stock" placeholder="Quantité en stock" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a th:href="@{/index(search=${search})}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

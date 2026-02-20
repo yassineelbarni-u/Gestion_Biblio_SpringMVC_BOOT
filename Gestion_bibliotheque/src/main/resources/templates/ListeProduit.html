@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Produits</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js}"></script>
+</head>
+
+<body>
+
+    <!-- Inclure la navbar -->
+    <div th:insert="~{template1 :: navbar}"></div>
+
+    <div class="container mt-4">
+        <div class="card p-2 m-2">
+            <div class="card-header">
+                <h1 class="mb-0">Liste des Produits</h1>
+            </div>
+
+            <div class="card-body">
+                <form method="get" th:action="@{/index}">
+                    <label for="search">Recherche</label>
+                    <input type="text" name="search" th:value="${search} ">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </form>
+                <a th:href="@{/addProduit(search=${search})}" class="btn btn-success mb-3">Ajouter un produit</a>
+                
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Catégorie</th>
+                            <th>Image</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="produit : ${ListeProduit}">
+                            <td>
+                                <img th:if="${produit.imageUrl != null and !produit.imageUrl.isEmpty()}" 
+                                     th:src="${produit.imageUrl}" 
+                                     alt="Image produit" 
+                                     style="width: 50px; height: 50px; object-fit: cover;">
+                                <span th:unless="${produit.imageUrl != null and !produit.imageUrl.isEmpty()}">Pas d'image</span>
+                            </td>
+                            <td th:text="${produit.nom}"></td>
+                            <td th:text="${produit.categorie}"></td>
+                            <td th:text="${produit.description}"></td>
+                            <td th:text="${produit.prix} + ' €'"></td>
+                            <td th:text="${produit.stock}"></td>
+                            <td>
+                                <a onclick="return confirm('Vous êtes sûr ?')"
+                                   th:href="@{deleteProduit(id=${produit.id}, page=${currentPage}, search=${search})}" 
+                                   class="btn btn-danger btn-sm">Supprimer</a>
+                                <a th:href="@{/editProduit(id=${produit.id}, search=${search})}" 
+                                   class="btn btn-primary btn-sm">Modifier</a>
+                             
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <ul class="pagination">
+                    <li th:each="page,status : ${pages}" class="page-item">
+                        <a th:class="${status.index == currentPage ? 'page-link active' : 'page-link'}"
+                           th:href="@{/index(page=${status.index}, search=${search})}" 
+                           class="page-link"
+                           th:text="${status.index + 1}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
